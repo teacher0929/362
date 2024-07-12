@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Product;
 use App\Models\User;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -19,5 +20,9 @@ class DatabaseSeeder extends Seeder
             BrandSerieSeeder::class,
             AttributeValueSeeder::class,
         ]);
+
+        Product::factory()
+            ->count(100)
+            ->create();
     }
 }

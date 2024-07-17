@@ -10,7 +10,8 @@
     <script type="text/javascript" src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
 </head>
 <body class="bg-light">
-<div class="container-fluid py-4">
+@include('app.nav')
+<div class="container-lg py-4">
     @yield('content')
 </div>
 </body>

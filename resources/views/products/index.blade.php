@@ -2,10 +2,21 @@
 @section('title') Products @endsection
 @section('content')
     <div class="h4 mb-3">
-        Products
+        @if(isset($brand))
+            {{ $brand->name }}
+        @endif
+        @if(isset($serie))
+            {{ $serie->name }}
+        @endif
+        @if(isset($category))
+            {{ $category->name }}
+        @endif
+        @if(!(isset($brand) or isset($serie) or isset($category)))
+            Products
+        @endif
     </div>
     <div class="row row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-5 row-cols-xl-6 g-2 g-3 mb-4">
-        @foreach($products as $product)
+        @forelse($products as $product)
             <div class="col">
                 <div class="bg-white rounded border p-3 h-100">
                     <div>
@@ -16,7 +27,13 @@
                     <div>Viewed: {{ $product->viewed }}</div>
                 </div>
             </div>
-        @endforeach
+        @empty
+            <div class="col">
+                <div class="bg-white rounded border p-3 h-100">
+                    Not found
+                </div>
+            </div>
+        @endforelse
     </div>
     <div>
         {{ $products->links() }}

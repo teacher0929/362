@@ -11,10 +11,7 @@ class HomeController extends Controller
 {
     public function index()
     {
-        $categories = Category::orderBy('name')
-            ->get();
-
-        $brandsSeries = Brand::with('series')
+        $brands = Brand::with('series')
             ->orderBy('name')
             ->get();
 
@@ -33,8 +30,7 @@ class HomeController extends Controller
 
         return view('home.index')
             ->with([
-                'categories' => $categories,
-                'brandsSeries' => $brandsSeries,
+                'brands' => $brands,
                 'popular' => $popular,
                 'discount' => $discount,
             ]);

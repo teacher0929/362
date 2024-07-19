@@ -11,7 +11,7 @@
 </head>
 <body class="bg-light">
 @include('app.nav')
-<div class="container-lg py-4">
+<div class="container-lg">
     @yield('content')
 </div>
 </body>

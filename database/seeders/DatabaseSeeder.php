@@ -22,7 +22,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         Product::factory()
-            ->count(100)
+            ->count(500)
             ->create();
     }
 }

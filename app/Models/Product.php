@@ -44,4 +44,30 @@ class Product extends Model
     {
         return $this->belongsToMany(AttributeValue::class, 'product_attribute_value');
     }
+
+
+    public function hasDiscount()
+    {
+        return $this->discount_percent > 0
+            and $this->discount_start <= now()
+            and $this->discount_end >= now()
+                ? true
+                : false;
+    }
+
+
+    public function isNew()
+    {
+        return $this->created_at >= now()->subMonth()
+                ? true
+                : false;
+    }
+
+
+    public function price()
+    {
+        return $this->hasDiscount()
+            ? round($this->price * (1 - $this->discount_percent / 100), 1)
+            : round($this->price, 1);
+    }
 }

@@ -1,16 +1,20 @@
 @extends('layouts.app')
 @section('title') {{ $product->name }} @endsection
 @section('content')
-    <div class="h4">
-        {{ $product->name }}
+    <div class="py-4">
+        <div class="h3">
+            {{ $product->name }}
+        </div>
+        <div>
+            {{ $product->description }}
+        </div>
+        <div>
+            {{ $product->price }}
+        </div>
+        <div>
+            {{ $product->stock }}
+        </div>
     </div>
-    <div>
-        {{ $product->description }}
-    </div>
-    <div>
-        {{ $product->price }}
-    </div>
-    <div>
-        {{ $product->stock }}
-    </div>
+    @include('home.index.popular')
+    @include('home.index.discount')
 @endsection

@@ -57,9 +57,28 @@ class ProductController extends Controller
     {
         $product = Product::findOrFail($id);
 
+        $popular = Product::where('category_id', $product->category_id)
+            ->where('brand_id', $product->brand_id)
+            ->where('stock', '>', 0)
+            ->orderBy('viewed', 'desc')
+            ->take(6)
+            ->get();
+
+        $discount = Product::where('category_id', $product->category_id)
+            ->where('brand_id', $product->brand_id)
+            ->where('discount_percent', '>', 0)
+            ->where('discount_start', '<=', now())
+            ->where('discount_end', '>=', now())
+            ->where('stock', '>', 0)
+            ->inRandomOrder()
+            ->take(6)
+            ->get();
+
         return view('products.show')
             ->with([
                 'product' => $product,
+                'popular' => $popular,
+                'discount' => $discount,
             ]);
     }
 }

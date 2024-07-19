@@ -8,7 +8,7 @@
         <div class="collapse navbar-collapse" id="navbar">
             <ul class="navbar-nav me-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('products.index') }}">
+                    <a class="nav-link link-warning" href="{{ route('products.index') }}">
                         <i class="bi-search"></i> Search
                     </a>
                 </li>

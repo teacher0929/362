@@ -17,7 +17,7 @@ class HomeController extends Controller
 
         $popular = Product::where('stock', '>', 0)
             ->orderBy('viewed', 'desc')
-            ->take(10)
+            ->take(6)
             ->get();
 
         $discount = Product::where('discount_percent', '>', 0)
@@ -25,7 +25,7 @@ class HomeController extends Controller
             ->where('discount_end', '>=', now())
             ->where('stock', '>', 0)
             ->inRandomOrder()
-            ->take(10)
+            ->take(6)
             ->get();
 
         return view('home.index')

@@ -14,10 +14,12 @@ class ProductController extends Controller
     public function index(Request $request)
     {
         $request->validate([
-            'category' => 'nullable|integer|min:1',
-            'brand' => 'nullable|integer|min:1',
-            'serie' => 'nullable|integer|min:1',
+            'q' => ['nullable', 'string', 'max:30'],
+            'category' => ['nullable', 'integer', 'min:1'],
+            'brand' => ['nullable', 'integer', 'min:1'],
+            'serie' => ['nullable', 'integer', 'min:1'],
         ]);
+        $f_q = $request->has('q') ? $request->q : null;
         $f_category = $request->has('category') ? $request->category : null;
         $f_brand = $request->has('brand') ? $request->brand : null;
         $f_serie = $request->has('serie') ? $request->serie : null;
@@ -32,9 +34,12 @@ class ProductController extends Controller
             ? Serie::findOrFail($f_serie)
             : null;
 
-        $products = Product::when(isset($f_category), function ($query) use ($f_category) {
-            return $query->where('category_id', $f_category);
+        $products = Product::when(isset($f_q), function ($query) use ($f_q) {
+            return $query->where('name', 'like', '%' . $f_q . '%');
         })
+            ->when(isset($f_category), function ($query) use ($f_category) {
+                return $query->where('category_id', $f_category);
+            })
             ->when(isset($f_brand), function ($query) use ($f_brand) {
                 return $query->where('brand_id', $f_brand);
             })
@@ -50,6 +55,10 @@ class ProductController extends Controller
                 'category' => $category,
                 'brand' => $brand,
                 'serie' => $serie,
+                'f_q' => $f_q,
+                'f_category' => $f_category,
+                'f_brand' => $f_brand,
+                'f_serie' => $f_serie,
             ]);
     }
 
@@ -79,6 +88,8 @@ class ProductController extends Controller
                 'product1' => $product1,
                 'product2' => $product2,
                 'attributes' => $attributes,
+                'f_pc1' => $f_pc1,
+                'f_pc2' => $f_pc2,
             ]);
     }
 

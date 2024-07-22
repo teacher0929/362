@@ -7,10 +7,16 @@
             <tr>
                 <td>Compare</td>
                 <td style="width:35%;">
-
+                    <form action="{{ url()->current() }}" method="get">
+                        <input type="search" class="form-control" name="pc1" value="{{ $f_pc1 }}">
+                        <input type="hidden" name="pc2" value="{{ $f_pc2 }}">
+                    </form>
                 </td>
                 <td style="width:35%;">
-
+                    <form action="{{ url()->current() }}" method="get">
+                        <input type="hidden" name="pc1" value="{{ $f_pc1 }}">
+                        <input type="search" class="form-control" name="pc2" value="{{ $f_pc2 }}">
+                    </form>
                 </td>
             </tr>
             <tr>

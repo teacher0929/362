@@ -22,7 +22,10 @@
                         </div>
                     @endif
                     <div class="rounded-4 overflow-hidden">
-                        <img src="{{ asset('img/product.jpg') }}" alt="" class="img-fluid">
+                        <a href="{{ asset('img/product.jpg') }}" data-fancybox="gallery"
+                           data-caption="{{ $product->name }} #1">
+                            <img src="{{ asset('img/product.jpg') }}" alt="" class="img-fluid">
+                        </a>
                     </div>
                 </div>
             </div>

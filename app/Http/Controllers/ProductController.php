@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Attribute;
 use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Product;
@@ -53,10 +54,39 @@ class ProductController extends Controller
     }
 
 
+    public function compare(Request $request)
+    {
+        $request->validate([
+            'pc1' => 'nullable|integer|min:1',
+            'pc2' => 'nullable|integer|min:1',
+        ]);
+        $f_pc1 = $request->has('pc1') ? $request->pc1 : null;
+        $f_pc2 = $request->has('pc2') ? $request->pc2 : null;
+
+        $product1 = isset($f_pc1)
+            ? Product::with('category', 'brand', 'serie', 'attributeValues')
+                ->findOrFail($f_pc1)
+            : null;
+        $product2 = isset($f_pc2)
+            ? Product::with('category', 'brand', 'serie', 'attributeValues')
+                ->findOrFail($f_pc2)
+            : null;
+        $attributes = Attribute::orderBy('sort_order')
+            ->get();
+
+        return view('products.compare')
+            ->with([
+                'product1' => $product1,
+                'product2' => $product2,
+                'attributes' => $attributes,
+            ]);
+    }
+
+
     public function show($id)
     {
-            $product = Product::with('category', 'brand', 'serie', 'attributeValues.attribute')
-                ->findOrFail($id);
+        $product = Product::with('category', 'brand', 'serie', 'attributeValues.attribute')
+            ->findOrFail($id);
 
         $popular = Product::where('category_id', $product->category_id)
             ->where('brand_id', $product->brand_id)

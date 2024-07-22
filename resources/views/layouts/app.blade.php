@@ -8,11 +8,16 @@
     <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/bootstrap-icons.min.css') }}" rel="stylesheet">
     <script type="text/javascript" src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
+    <link href="{{ asset('css/fancybox.css') }}" rel="stylesheet">
+    <script type="text/javascript" src="{{ asset('js/fancybox.umd.js') }}"></script>
 </head>
 <body class="bg-light">
 @include('app.nav')
 <div class="container-xl">
     @yield('content')
 </div>
+<script>
+    Fancybox.bind("[data-fancybox]", {});
+</script>
 </body>
 </html>

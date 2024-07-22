@@ -55,7 +55,8 @@ class ProductController extends Controller
 
     public function show($id)
     {
-        $product = Product::findOrFail($id);
+            $product = Product::with('category', 'brand', 'serie', 'attributeValues.attribute')
+                ->findOrFail($id);
 
         $popular = Product::where('category_id', $product->category_id)
             ->where('brand_id', $product->brand_id)

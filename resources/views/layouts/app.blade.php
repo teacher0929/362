@@ -11,7 +11,7 @@
 </head>
 <body class="bg-light">
 @include('app.nav')
-<div class="container-lg">
+<div class="container-xl">
     @yield('content')
 </div>
 </body>

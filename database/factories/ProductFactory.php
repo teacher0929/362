@@ -2,7 +2,10 @@
 
 namespace Database\Factories;
 
+use App\Models\Attribute;
+use App\Models\AttributeValue;
 use App\Models\Category;
+use App\Models\Product;
 use App\Models\Serie;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -11,6 +14,32 @@ use Illuminate\Database\Eloquent\Factories\Factory;
  */
 class ProductFactory extends Factory
 {
+    /**
+     * Configure the model factory.
+     */
+    public function configure(): static
+    {
+        return $this->afterMaking(function (Product $product) {
+            // ...
+        })->afterCreating(function (Product $product) {
+            $attributes = Attribute::orderBy('sort_order')
+                ->get();
+
+            $attributeValues = [];
+            foreach ($attributes as $attribute) {
+                $attributeValue = AttributeValue::where('attribute_id', $attribute->id)
+                    ->inRandomOrder()
+                    ->first();
+
+                if ($attributeValue) {
+                    $attributeValues[] = $attributeValue->id;
+                }
+            }
+
+            $product->attributeValues()->sync($attributeValues);
+        });
+    }
+
     /**
      * Define the model's default state.
      *

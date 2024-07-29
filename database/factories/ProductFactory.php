@@ -49,12 +49,14 @@ class ProductFactory extends Factory
     {
         $category = Category::inRandomOrder()->first();
         $serie = Serie::with('brand')->inRandomOrder()->first();
+        $name = $serie->brand->name . ' ' . $serie->name . ' ' . fake()->streetName();
         $hasDiscount = fake()->boolean(30);
         return [
             'category_id' => $category->id,
             'brand_id' => $serie->brand->id,
             'serie_id' => $serie->id,
-            'name' => $serie->brand->name . ' ' . $serie->name . ' ' . fake()->streetName(),
+            'name' => $name,
+            'slug' => str($name)->slug(),
             'description' => fake()->paragraph(rand(3, 5)),
             'stock' => fake()->randomNumber(2),
             'price' => fake()->randomFloat(1, 100, 1000),

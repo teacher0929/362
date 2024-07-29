@@ -3,11 +3,11 @@
     <div class="row">
         @foreach($brands as $brand)
             <div class="col">
-                <a class="btn btn-danger d-block text-center my-1" href="{{ route('products.index', ['brand' => $brand->id]) }}">
+                <a class="btn btn-danger d-block text-center my-1" href="{{ route('products.index', ['brand' => $brand->slug]) }}">
                     {{ $brand->name }}
                 </a>
                 @foreach($brand->series as $serie)
-                    <a class="btn btn-light d-block text-center my-1" href="{{ route('products.index', ['serie' => $serie->id]) }}">
+                    <a class="btn btn-light d-block text-center my-1" href="{{ route('products.index', ['serie' => $serie->slug]) }}">
                         {{ $serie->name }}
                     </a>
                 @endforeach

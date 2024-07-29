@@ -14,7 +14,7 @@
                 </li>
                 @foreach($categories as $category)
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('products.index', ['category' => $category->id]) }}">
+                        <a class="nav-link" href="{{ route('products.index', ['category' => $category->slug]) }}">
                             {{ $category->name }}
                         </a>
                     </li>

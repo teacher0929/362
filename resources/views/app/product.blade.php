@@ -34,7 +34,7 @@
         @endif
         <div>
             <a class="h6 link-dark text-decoration-none stretched-link"
-               href="{{ route('products.show', $product->id) }}">
+               href="{{ route('products.show', $product->slug) }}">
                 {{ $product->name }}
             </a>
         </div>
@@ -44,7 +44,7 @@
         </div>
     </div>
     <a class="small text-decoration-none"
-       href="{{ route('products.compare', ['pc1' => $product->id]) }}">
+       href="{{ route('products.compare', ['pc1' => $product->slug]) }}">
         Compare
     </a>
 </div>

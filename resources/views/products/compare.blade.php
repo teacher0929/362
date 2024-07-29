@@ -83,7 +83,7 @@
                 <td>
                     @if(isset($product1))
                         <a class="link-dark text-decoration-none"
-                           href="{{ route('products.index', ['category' => $product1->category->id]) }}">
+                           href="{{ route('products.index', ['category' => $product1->category->slug]) }}">
                             {{ $product1->category->name }}
                         </a>
                     @endif
@@ -91,7 +91,7 @@
                 <td>
                     @if(isset($product2))
                         <a class="link-dark text-decoration-none"
-                           href="{{ route('products.index', ['category' => $product2->category->id]) }}">
+                           href="{{ route('products.index', ['category' => $product2->category->slug]) }}">
                             {{ $product2->category->name }}
                         </a>
                     @endif
@@ -102,7 +102,7 @@
                 <td>
                     @if(isset($product1))
                         <a class="link-dark text-decoration-none"
-                           href="{{ route('products.index', ['brand' => $product1->brand->id]) }}">
+                           href="{{ route('products.index', ['brand' => $product1->brand->slug]) }}">
                             {{ $product1->brand->name }}
                         </a>
                     @endif
@@ -110,7 +110,7 @@
                 <td>
                     @if(isset($product2))
                         <a class="link-dark text-decoration-none"
-                           href="{{ route('products.index', ['brand' => $product2->brand->id]) }}">
+                           href="{{ route('products.index', ['brand' => $product2->brand->slug]) }}">
                             {{ $product2->brand->name }}
                         </a>
                     @endif
@@ -121,7 +121,7 @@
                 <td>
                     @if(isset($product1))
                         <a class="link-dark text-decoration-none"
-                           href="{{ route('products.index', ['serie' => $product1->serie->id]) }}">
+                           href="{{ route('products.index', ['serie' => $product1->serie->slug]) }}">
                             {{ $product1->serie->name }}
                         </a>
                     @endif
@@ -129,7 +129,7 @@
                 <td>
                     @if(isset($product2))
                         <a class="link-dark text-decoration-none"
-                           href="{{ route('products.index', ['serie' => $product2->serie->id]) }}">
+                           href="{{ route('products.index', ['serie' => $product2->serie->slug]) }}">
                             {{ $product2->serie->name }}
                         </a>
                     @endif

@@ -58,7 +58,7 @@
                         <td>Category</td>
                         <td>
                             <a class="link-dark text-decoration-none"
-                               href="{{ route('products.index', ['category' => $product->category->id]) }}">
+                               href="{{ route('products.index', ['category' => $product->category->slug]) }}">
                                 {{ $product->category->name }}
                             </a>
                         </td>
@@ -67,7 +67,7 @@
                         <td>Brand</td>
                         <td>
                             <a class="link-dark text-decoration-none"
-                               href="{{ route('products.index', ['brand' => $product->brand->id]) }}">
+                               href="{{ route('products.index', ['brand' => $product->brand->slug]) }}">
                                 {{ $product->brand->name }}
                             </a>
                         </td>
@@ -76,7 +76,7 @@
                         <td>Serie</td>
                         <td>
                             <a class="link-dark text-decoration-none"
-                               href="{{ route('products.index', ['serie' => $product->serie->id]) }}">
+                               href="{{ route('products.index', ['serie' => $product->serie->slug]) }}">
                                 {{ $product->serie->name }}
                             </a>
                         </td>

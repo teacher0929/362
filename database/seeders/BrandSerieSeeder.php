@@ -32,12 +32,14 @@ class BrandSerieSeeder extends Seeder
         foreach ($brands as $brand) {
             $b = Brand::create([
                 'name' => $brand['name'],
+                'slug' => str($brand['name'])->slug(),
             ]);
 
             foreach ($brand['series'] as $serie) {
                 Serie::create([
                     'brand_id' => $b->id,
                     'name' => $serie,
+                    'slug' => str($serie)->slug(),
                 ]);
             }
         }

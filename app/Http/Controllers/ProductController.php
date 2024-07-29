@@ -15,9 +15,9 @@ class ProductController extends Controller
     {
         $request->validate([
             'q' => ['nullable', 'string', 'max:30'],
-            'category' => ['nullable', 'integer', 'min:1'],
-            'brand' => ['nullable', 'integer', 'min:1'],
-            'serie' => ['nullable', 'integer', 'min:1'],
+            'category' => ['nullable', 'string', 'max:50'],
+            'brand' => ['nullable', 'string', 'max:50'],
+            'serie' => ['nullable', 'string', 'max:50'],
         ]);
         $f_q = $request->has('q') ? $request->q : null;
         $f_category = $request->has('category') ? $request->category : null;
@@ -25,26 +25,29 @@ class ProductController extends Controller
         $f_serie = $request->has('serie') ? $request->serie : null;
 
         $category = isset($f_category)
-            ? Category::findOrFail($f_category)
+            ? Category::where('slug', $f_category)
+                ->firstOrFail()
             : null;
         $brand = isset($f_brand)
-            ? Brand::findOrFail($f_brand)
+            ? Brand::where('slug', $f_brand)
+                ->firstOrFail()
             : null;
         $serie = isset($f_serie)
-            ? Serie::findOrFail($f_serie)
+            ? Serie::where('slug', $f_serie)
+                ->firstOrFail()
             : null;
 
         $products = Product::when(isset($f_q), function ($query) use ($f_q) {
             return $query->where('name', 'like', '%' . $f_q . '%');
         })
-            ->when(isset($f_category), function ($query) use ($f_category) {
-                return $query->where('category_id', $f_category);
+            ->when(isset($category), function ($query) use ($category) {
+                return $query->where('category_id', $category->id);
             })
-            ->when(isset($f_brand), function ($query) use ($f_brand) {
-                return $query->where('brand_id', $f_brand);
+            ->when(isset($brand), function ($query) use ($brand) {
+                return $query->where('brand_id', $brand->id);
             })
-            ->when(isset($f_serie), function ($query) use ($f_serie) {
-                return $query->where('serie_id', $f_serie);
+            ->when(isset($serie), function ($query) use ($serie) {
+                return $query->where('serie_id', $serie->id);
             })
             ->orderBy('id', 'desc')
             ->paginate(30);
@@ -66,19 +69,21 @@ class ProductController extends Controller
     public function compare(Request $request)
     {
         $request->validate([
-            'pc1' => 'nullable|integer|min:1',
-            'pc2' => 'nullable|integer|min:1',
+            'pc1' => 'nullable|string|max:255',
+            'pc2' => 'nullable|string|max:255',
         ]);
         $f_pc1 = $request->has('pc1') ? $request->pc1 : null;
         $f_pc2 = $request->has('pc2') ? $request->pc2 : null;
 
         $product1 = isset($f_pc1)
             ? Product::with('category', 'brand', 'serie', 'attributeValues')
-                ->findOrFail($f_pc1)
+                ->where('slug', $f_pc1)
+                ->firstOrFail()
             : null;
         $product2 = isset($f_pc2)
             ? Product::with('category', 'brand', 'serie', 'attributeValues')
-                ->findOrFail($f_pc2)
+                ->where('slug', $f_pc2)
+                ->firstOrFail()
             : null;
         $attributes = Attribute::orderBy('sort_order')
             ->get();
@@ -94,10 +99,11 @@ class ProductController extends Controller
     }
 
 
-    public function show($id)
+    public function show($slug)
     {
         $product = Product::with('category', 'brand', 'serie', 'attributeValues.attribute')
-            ->findOrFail($id);
+            ->where('slug', $slug)
+            ->firstOrFail();
 
         $popular = Product::where('category_id', $product->category_id)
             ->where('brand_id', $product->brand_id)

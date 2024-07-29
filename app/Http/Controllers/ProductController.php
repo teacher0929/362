@@ -18,11 +18,15 @@ class ProductController extends Controller
             'category' => ['nullable', 'string', 'max:50'],
             'brand' => ['nullable', 'string', 'max:50'],
             'serie' => ['nullable', 'string', 'max:50'],
+            'hasDiscount' => ['nullable', 'boolean'],
+            'isNew' => ['nullable', 'boolean'],
         ]);
         $f_q = $request->has('q') ? $request->q : null;
         $f_category = $request->has('category') ? $request->category : null;
         $f_brand = $request->has('brand') ? $request->brand : null;
         $f_serie = $request->has('serie') ? $request->serie : null;
+        $f_hasDiscount = $request->has('hasDiscount') ? $request->hasDiscount : 0;
+        $f_isNew = $request->has('isNew') ? $request->isNew : 0;
 
         $category = isset($f_category)
             ? Category::where('slug', $f_category)
@@ -48,6 +52,14 @@ class ProductController extends Controller
             })
             ->when(isset($serie), function ($query) use ($serie) {
                 return $query->where('serie_id', $serie->id);
+            })
+            ->when($f_hasDiscount, function ($query) {
+                return $query->where('discount_percent', '>', 0)
+                    ->where('discount_start', '<=', now())
+                    ->where('discount_end', '>=', now());
+            })
+            ->when($f_isNew, function ($query) {
+                return $query->where('created_at', '>=', now()->subMonth());
             })
             ->orderBy('id', 'desc')
             ->paginate(30);

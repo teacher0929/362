@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Brand;
-use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
 
@@ -17,7 +16,7 @@ class HomeController extends Controller
 
         $popular = Product::where('stock', '>', 0)
             ->orderBy('viewed', 'desc')
-            ->take(6)
+            ->take(5)
             ->get();
 
         $discount = Product::where('discount_percent', '>', 0)
@@ -25,7 +24,13 @@ class HomeController extends Controller
             ->where('discount_end', '>=', now())
             ->where('stock', '>', 0)
             ->inRandomOrder()
-            ->take(6)
+            ->take(5)
+            ->get();
+
+        $new = Product::where('created_at', '>=', now()->subMonth())
+            ->where('stock', '>', 0)
+            ->inRandomOrder()
+            ->take(5)
             ->get();
 
         return view('home.index')
@@ -33,6 +38,7 @@ class HomeController extends Controller
                 'brands' => $brands,
                 'popular' => $popular,
                 'discount' => $discount,
+                'new' => $new,
             ]);
     }
 }

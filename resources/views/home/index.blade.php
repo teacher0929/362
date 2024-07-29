@@ -4,4 +4,5 @@
     @include('home.index.brands')
     @include('home.index.popular')
     @include('home.index.discount')
+    @include('home.index.new')
 @endsection

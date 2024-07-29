@@ -121,7 +121,7 @@ class ProductController extends Controller
             ->where('brand_id', $product->brand_id)
             ->where('stock', '>', 0)
             ->orderBy('viewed', 'desc')
-            ->take(6)
+            ->take(5)
             ->get();
 
         $discount = Product::where('category_id', $product->category_id)
@@ -131,7 +131,7 @@ class ProductController extends Controller
             ->where('discount_end', '>=', now())
             ->where('stock', '>', 0)
             ->inRandomOrder()
-            ->take(6)
+            ->take(5)
             ->get();
 
         return view('products.show')

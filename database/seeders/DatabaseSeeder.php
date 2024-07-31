@@ -24,5 +24,9 @@ class DatabaseSeeder extends Seeder
         Product::factory()
             ->count(500)
             ->create();
+
+        User::factory()
+            ->count(5)
+            ->create();
     }
 }

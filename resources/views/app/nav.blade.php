@@ -20,6 +20,26 @@
                     </li>
                 @endforeach
             </ul>
+            <ul class="navbar-nav ms-auto">
+                @auth
+                    <li class="nav-item">
+                        <a class="nav-link link-warning" href="#">
+                            <i class="bi-box-arrow-right"></i> Logout
+                        </a>
+                    </li>
+                @else
+                    <li class="nav-item">
+                        <a class="nav-link link-warning" href="{{ route('login') }}">
+                            <i class="bi-box-arrow-in-right"></i> Login
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link link-warning" href="{{ route('register') }}">
+                            <i class="bi-person-plus"></i> Register
+                        </a>
+                    </li>
+                @endauth
+            </ul>
         </div>
     </div>
 </nav>

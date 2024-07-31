@@ -116,6 +116,7 @@ class ProductController extends Controller
         $product = Product::with('category', 'brand', 'serie', 'attributeValues.attribute')
             ->where('slug', $slug)
             ->firstOrFail();
+        $product->increment('viewed');
 
         $popular = Product::where('category_id', $product->category_id)
             ->where('brand_id', $product->brand_id)

@@ -27,7 +27,7 @@
                 <small>TMT</small>
             </div>
         @else
-            <div class="h5 text-dark">
+            <div class="h5 text-secondary">
                 {{ number_format($product->price, 2, '.', ' ') }}
                 <small>TMT</small>
             </div>
@@ -41,6 +41,7 @@
         <div class="row g-2 g-sm-3 mt-auto">
             <div class="col-auto"><i class="bi-box-fill text-secondary"></i> {{ $product->stock }}</div>
             <div class="col-auto"><i class="bi-eye-fill text-secondary"></i> {{ $product->viewed }}</div>
+            <div class="col-auto"><i class="bi-heart-fill text-secondary"></i> {{ $product->favorites }}</div>
         </div>
     </div>
     <a class="small text-decoration-none"

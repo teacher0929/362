@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ProductController;
@@ -31,6 +32,15 @@ Route::controller(ProductController::class)
         Route::get('', 'index')->name('index');
         Route::get('compare', 'compare')->name('compare');
         Route::get('{slug}', 'show')->name('show')->where(['slug' => '[a-z0-9-]+']);
+    });
+
+Route::controller(FavoriteController::class)
+    ->middleware('auth')
+    ->prefix('favorites')
+    ->name('favorites.')
+    ->group(function () {
+        Route::get('', 'index')->name('index');
+        Route::get('{slug}', 'add')->name('add')->where(['slug' => '[a-z0-9-]+']);
     });
 
 

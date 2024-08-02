@@ -12,6 +12,13 @@
                         <i class="bi-search"></i> Search
                     </a>
                 </li>
+                @auth
+                    <li class="nav-item">
+                        <a class="nav-link link-warning" href="{{ route('favorites.index') }}">
+                            <i class="bi-heart-fill"></i> Favorites
+                        </a>
+                    </li>
+                @endauth
                 @foreach($categories as $category)
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('products.index', ['category' => $category->slug]) }}">

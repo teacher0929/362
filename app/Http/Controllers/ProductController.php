@@ -8,6 +8,7 @@ use App\Models\Category;
 use App\Models\Product;
 use App\Models\Serie;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cookie;
 
 class ProductController extends Controller
 {
@@ -116,7 +117,18 @@ class ProductController extends Controller
         $product = Product::with('category', 'brand', 'serie', 'attributeValues.attribute')
             ->where('slug', $slug)
             ->firstOrFail();
-        $product->increment('viewed');
+
+        if (Cookie::has('product_views')) {
+            $cookieIds = Cookie::get('product_views');
+            $productIds = explode(',', $cookieIds);
+            if (!in_array($product->id, $productIds)) {
+                $product->increment('viewed');
+                $productIds[] = $product->id;
+                Cookie::queue('product_views', implode(',', $productIds), 8 * 60);
+            }
+        } else {
+            Cookie::queue('product_views', $product->id, 8 * 60);
+        }
 
         $popular = Product::where('category_id', $product->category_id)
             ->where('brand_id', $product->brand_id)

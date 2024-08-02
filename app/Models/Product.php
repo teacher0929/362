@@ -46,6 +46,12 @@ class Product extends Model
     }
 
 
+    public function favorites()
+    {
+        return $this->belongsToMany(User::class, 'user_product');
+    }
+
+
     public function hasDiscount()
     {
         return $this->discount_percent > 0

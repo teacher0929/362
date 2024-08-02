@@ -40,17 +40,30 @@
                         <small>TMT</small>
                     </div>
                 @else
-                    <div class="h4 text-dark">
+                    <div class="h4 text-secondary">
                         {{ number_format($product->price, 2, '.', ' ') }}
                         <small>TMT</small>
                     </div>
                 @endif
+                <div class="h5">
+                    <a class="btn btn-light bg-white"
+                       href="{{ route('products.compare', ['pc1' => $product->slug]) }}">
+                        <i class="bi-grid-fill text-primary"></i> Compare
+                    </a>
+                    @auth
+                        <a class="btn btn-light bg-white"
+                           href="{{ route('favorites.add', $product->slug) }}">
+                            <i class="bi-heart-fill text-danger"></i> Add to favorites
+                        </a>
+                    @endauth
+                </div>
                 <div class="mb-2">
                     {{ $product->description }}
                 </div>
                 <div class="row g-2 g-sm-3 mb-3">
                     <div class="col-auto"><i class="bi-box-fill text-secondary"></i> {{ $product->stock }}</div>
                     <div class="col-auto"><i class="bi-eye-fill text-secondary"></i> {{ $product->viewed }}</div>
+                    <div class="col-auto"><i class="bi-heart-fill text-secondary"></i> {{ $product->favorites }}</div>
                 </div>
                 <table class="table table-striped table-hover table-bordered">
                     <tbody>

@@ -1,26 +1,32 @@
 @extends('layouts.app')
-@section('title') Register @endsection
+@section('title') Login @endsection
 @section('content')
     <div class="py-4">
         <div class="row justify-content-center">
             <div class="col-10 col-sm-8 col-md-6 col-lg-4">
                 <div class="h3 text-center">
-                    Register
+                    Login
                 </div>
-                <form method="POST" action="{{ route('register') }}">
+                <form method="POST" action="{{ route('login') }}">
                     @csrf
 
                     <div class="mb-3">
                         <label for="username" class="form-label">Username</label>
-                        <input type="text" class="form-control" id="username" name="username" required autofocus>
+                        <input type="text" class="form-control @error('username') is-invalid @enderror" id="username" name="username" required autofocus>
+                        @error('username')
+                            <div class="alert alert-danger mt-2">{{ $message }}</div>
+                        @enderror
                     </div>
 
                     <div class="mb-3">
                         <label for="password" class="form-label">Password</label>
                         <div class="input-group">
-                            <input type="password" class="form-control" id="password" name="password" required>
+                            <input type="password" class="form-control @error('password') is-invalid @enderror" id="password" name="password" required>
                             <button class="btn btn-success" type="button" id="btnPassword" value="0"><i class="bi-eye-slash"></i></button>
                         </div>
+                        @error('password')
+                            <div class="alert alert-danger mt-2">{{ $message }}</div>
+                        @enderror
                         <script>
                             document.getElementById('btnPassword')
                                 .addEventListener('click', function () {
@@ -43,7 +49,7 @@
                         </script>
                     </div>
 
-                    <button type="submit" class="btn btn-primary w-100">Register</button>
+                    <button type="submit" class="btn btn-dark w-100">Login</button>
                 </form>
             </div>
         </div>

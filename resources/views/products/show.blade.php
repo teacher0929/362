@@ -40,7 +40,7 @@
                         <small>TMT</small>
                     </div>
                 @else
-                    <div class="h4 text-primary">
+                    <div class="h4 text-dark">
                         {{ number_format($product->price, 2, '.', ' ') }}
                         <small>TMT</small>
                     </div>

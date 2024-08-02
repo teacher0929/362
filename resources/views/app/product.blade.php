@@ -27,7 +27,7 @@
                 <small>TMT</small>
             </div>
         @else
-            <div class="h5 text-primary">
+            <div class="h5 text-dark">
                 {{ number_format($product->price, 2, '.', ' ') }}
                 <small>TMT</small>
             </div>

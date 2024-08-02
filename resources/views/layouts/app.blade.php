@@ -12,6 +12,7 @@
     <script type="text/javascript" src="{{ asset('js/fancybox.umd.js') }}"></script>
 </head>
 <body class="bg-light">
+@include('app.alert')
 @include('app.nav')
 <div class="container-xl">
     @yield('content')

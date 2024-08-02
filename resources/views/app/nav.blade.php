@@ -23,9 +23,14 @@
             <ul class="navbar-nav ms-auto">
                 @auth
                     <li class="nav-item">
-                        <a class="nav-link link-warning" href="#">
+                        <a class="nav-link link-warning" href="#"
+                           onclick="event.preventDefault(); document.getElementById('logout').submit();">
                             <i class="bi-box-arrow-right"></i> Logout
+                            {{ auth()->user()->name }}
                         </a>
+                        <form method="POST" action="{{ route('logout') }}" id="logout">
+                            @csrf
+                        </form>
                     </li>
                 @else
                     <li class="nav-item">

@@ -58,12 +58,13 @@ class ProductFactory extends Factory
             'name' => $name,
             'slug' => str($name)->slug(),
             'description' => fake()->paragraph(rand(3, 5)),
-            'stock' => fake()->randomNumber(2),
+            'stock' => fake()->randomNumber(1),
             'price' => fake()->randomFloat(1, 100, 1000),
             'discount_percent' => $hasDiscount ? fake()->numberBetween(10, 50) : 0,
             'discount_start' => today(),
             'discount_end' => today()->addDays(3),
             'viewed' => fake()->randomNumber(2),
+            'favorites' => fake()->randomNumber(1),
             'created_at' => fake()->dateTimeBetween('-6 months', 'now'),
         ];
     }

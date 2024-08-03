@@ -50,12 +50,10 @@
                        href="{{ route('products.compare', ['pc1' => $product->slug]) }}">
                         <i class="bi-grid-fill text-primary"></i> Compare
                     </a>
-                    @auth
-                        <a class="btn btn-light bg-white"
-                           href="{{ route('favorites.add', $product->slug) }}">
-                            <i class="bi-heart-fill text-danger"></i> Add to favorites
-                        </a>
-                    @endauth
+                    <a class="btn btn-light bg-white"
+                       href="{{ route('favorites.add', $product->slug) }}">
+                        <i class="bi-heart-fill text-danger"></i> Add to favorites
+                    </a>
                 </div>
                 <div class="mb-2">
                     {{ $product->description }}

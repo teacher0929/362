@@ -52,6 +52,13 @@ class Product extends Model
     }
 
 
+    public function reviews()
+    {
+        return $this->hasMany(Review::class)
+            ->orderBy('id', 'desc');
+    }
+
+
     public function hasDiscount()
     {
         return $this->discount_percent > 0
@@ -65,8 +72,8 @@ class Product extends Model
     public function isNew()
     {
         return $this->created_at >= now()->subMonth()
-                ? true
-                : false;
+            ? true
+            : false;
     }
 
 

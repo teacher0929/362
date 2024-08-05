@@ -34,6 +34,9 @@
                            onclick="event.preventDefault(); document.getElementById('logout').submit();">
                             <i class="bi-box-arrow-right"></i> Logout
                             {{ auth()->user()->name }}
+                            @if(auth()->user()->is_admin)
+                                (Admin)
+                            @endif
                         </a>
                         <form method="POST" action="{{ route('logout') }}" id="logout">
                             @csrf

@@ -33,11 +33,52 @@
                 @csrf
 
                 <div class="mb-3">
-                    <label for="rating" class="form-label">Rating</label>
-                    <input type="number" min="1" max="5" class="form-control @error('rating') is-invalid @enderror" id="rating" name="rating" required autofocus>
+                    <div class="text-center" id="stars">
+                        <button type="button" class="btn btn-link btn-sm" value="1">
+                            <i class="bi-star fs-5 text-warning"></i>
+                        </button>
+                        <button type="button" class="btn btn-link btn-sm" value="2">
+                            <i class="bi-star fs-5 text-warning"></i>
+                        </button>
+                        <button type="button" class="btn btn-link btn-sm" value="3">
+                            <i class="bi-star fs-5 text-warning"></i>
+                        </button>
+                        <button type="button" class="btn btn-link btn-sm" value="4">
+                            <i class="bi-star fs-5 text-warning"></i>
+                        </button>
+                        <button type="button" class="btn btn-link btn-sm" value="5">
+                            <i class="bi-star fs-5 text-warning"></i>
+                        </button>
+                    </div>
+                    <label for="rating" class="form-label d-none">Rating</label>
+                    <input type="number" min="1" max="5" class="form-control @error('rating') is-invalid @enderror d-none" id="rating" name="rating" required autofocus>
                     @error('rating')
                     <div class="alert alert-danger mt-2">{{ $message }}</div>
                     @enderror
+                    <script>
+                        let stars = document.querySelectorAll('#stars button');
+                        let rating = document.getElementById('rating');
+
+                        for (const star of stars) {
+                            star.addEventListener('click', function () {
+                                if (rating.value === this.value) {
+                                    rating.value = 0;
+                                } else {
+                                    rating.value = this.value;
+                                }
+
+                                for (const btn of stars) {
+                                    if (parseInt(btn.value) <= parseInt(rating.value)) {
+                                        btn.firstElementChild.classList.add('bi-star-fill');
+                                        btn.firstElementChild.classList.remove('bi-star');
+                                    } else {
+                                        btn.firstElementChild.classList.add('bi-star');
+                                        btn.firstElementChild.classList.remove('bi-star-fill');
+                                    }
+                                }
+                            });
+                        }
+                    </script>
                 </div>
 
                 <div class="mb-3">

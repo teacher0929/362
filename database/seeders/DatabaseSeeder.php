@@ -28,5 +28,11 @@ class DatabaseSeeder extends Seeder
         User::factory()
             ->count(5)
             ->create();
+
+        User::factory()
+            ->create([
+                'username' => 'admin',
+                'is_admin' => 1,
+            ]);
     }
 }

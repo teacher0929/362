@@ -23,6 +23,9 @@ class ReviewController extends Controller
         $review->product_id = $product->id;
         $review->rating = $request->rating;
         $review->comment = $request->comment;
+        if (auth()->user()->is_admin) {
+            $review->status = 1;
+        }
         $review->save();
 
         return redirect()->back()

@@ -89,13 +89,13 @@ class ProductController extends Controller
         $f_pc2 = $request->has('pc2') ? $request->pc2 : null;
 
         $product1 = isset($f_pc1)
-            ? Product::with('category', 'brand', 'serie', 'attributeValues')
-                ->where('slug', $f_pc1)
+            ? Product::where('slug', $f_pc1)
+                ->with('category', 'brand', 'serie', 'attributeValues')
                 ->firstOrFail()
             : null;
         $product2 = isset($f_pc2)
-            ? Product::with('category', 'brand', 'serie', 'attributeValues')
-                ->where('slug', $f_pc2)
+            ? Product::where('slug', $f_pc2)
+                ->with('category', 'brand', 'serie', 'attributeValues')
                 ->firstOrFail()
             : null;
         $attributes = Attribute::orderBy('sort_order')
@@ -114,8 +114,15 @@ class ProductController extends Controller
 
     public function show($slug)
     {
-        $product = Product::with('category', 'brand', 'serie', 'attributeValues.attribute')
-            ->where('slug', $slug)
+        $product = Product::where('slug', $slug)
+            ->with([
+                'category', 'brand', 'serie', 'attributeValues.attribute',
+                'reviews' => function ($query) {
+                    $query->where('status', 1);
+                    $query->orWhere('user_id', auth()->id());
+                    $query->with('user');
+                }
+            ])
             ->firstOrFail();
 
         if (Cookie::has('product_views')) {

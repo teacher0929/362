@@ -5,6 +5,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\ReviewController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('guest')
@@ -41,6 +42,14 @@ Route::controller(FavoriteController::class)
     ->group(function () {
         Route::get('', 'index')->name('index');
         Route::get('{slug}', 'add')->name('add')->where(['slug' => '[a-z0-9-]+']);
+    });
+
+Route::controller(ReviewController::class)
+    ->middleware('auth')
+    ->prefix('reviews')
+    ->name('reviews.')
+    ->group(function () {
+        Route::post('{slug}', 'store')->name('store')->where(['slug' => '[a-z0-9-]+']);
     });
 
 

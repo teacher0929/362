@@ -100,6 +100,7 @@
                     @endforeach
                     </tbody>
                 </table>
+                @include('products.show.review')
             </div>
         </div>
     </div>

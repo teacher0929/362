@@ -17,9 +17,11 @@
                         {{ $review->user->name }}
                     </div>
                     <div class="col text-end">
-                        <div class="fw-semibold text-{{ $review->statusColor() }}-emphasis">
-                            {{ $review->statusName() }}
-                        </div>
+                        @if(auth()->check() && auth()->id() == $review->user_id)
+                            <div class="fw-semibold text-{{ $review->statusColor() }}-emphasis">
+                                {{ $review->statusName() }}
+                            </div>
+                        @endif
                     </div>
                     <div class="col-12">
                         {{ $review->comment }}
